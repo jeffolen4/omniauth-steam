@@ -9,6 +9,7 @@ module OmniAuth
       option :api_key, nil
       option :name, "steam"
       option :identifier, "http://steamcommunity.com/openid"
+      option :client_options, {:proxy => "http://egress-proxy001.zhv.zenimaxonline.com:3128"} #ENV['http_proxy'] ? URI(ENV['http_proxy']) : nil}
 
       uid { steam_id }
 
@@ -23,7 +24,7 @@ module OmniAuth
             "Profile" => player["profileurl"],
             "FriendList" => friend_list_url
           }
-        }        
+        }
         rescue MultiJson::ParseError => exception
           fail!(:steamError, exception)
           {}
